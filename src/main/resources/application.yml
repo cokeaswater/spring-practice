@@ -1,0 +1,56 @@
+server:
+  shutdown: graceful
+  port: 11080
+
+logging:
+  level:
+    root: DEBUG
+
+
+
+spring:
+  datasource:
+    url: jdbc:h2:~/test;
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+
+
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate :
+        format_sql: true
+        generate_statistics: true
+
+      #  dialect: org.hibernate.dialect.MySQLDialect
+    org:
+      hibernate:
+        envers:
+          audit_table_suffix: _history
+          revision_field_name: revision_no
+          revision_type_field_name: revision_type
+          store_data_at_delete: true
+          revision_on_collection_change: true
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+
+feign:
+  client:
+    config:
+      default:
+        connectionTimeout: 500
+        readTimeout: 5000
+
+
